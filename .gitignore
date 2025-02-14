@@ -1,0 +1,20 @@
+# PyCharm settings
+.idea/
+
+# Virtual environment
+.venv/
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Logs
+*.log
+logs/
+debug.log
+
+# HTTP request files
+*test_main.http
