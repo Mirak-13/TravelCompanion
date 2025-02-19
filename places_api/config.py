@@ -12,5 +12,3 @@ headers = {
     "Accept-Language": "ru",
     "Authorization": API_KEY,
 }
-
-
