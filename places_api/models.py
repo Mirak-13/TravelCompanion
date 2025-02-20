@@ -16,4 +16,3 @@ def query_by_name(name: str, city: str, country: str = 'Россия', limit: in
         "limit": limit
     }
     return params
-
