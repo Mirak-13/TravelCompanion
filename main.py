@@ -1,6 +1,6 @@
 from contextlib import asynccontextmanager
 
-from database.base import Base
+from database.config import Base
 from database.config import db_helper
 from fastapi import FastAPI
 from places_api.views import router as places_router

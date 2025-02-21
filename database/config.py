@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, declared_attr
 
 
 class Settings(BaseSettings):
@@ -22,3 +23,13 @@ class DatabaseHelper:
 
 
 db_helper = DatabaseHelper(url=settings.db_url, echo=settings.db_echo)
+
+
+class Base(DeclarativeBase):
+    __abstract__ = True
+
+    @declared_attr
+    def __tablename__(cls) -> str:
+        return f'{cls.__name__.lower()}'
+
+    id: Mapped[int] = mapped_column(primary_key=True)

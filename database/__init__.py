@@ -5,6 +5,6 @@ __all__ = (
     'Comments'
 )
 
-from .base import Base
+from .config import Base
 from .config import DatabaseHelper, db_helper
 from .comments_db import Comments
