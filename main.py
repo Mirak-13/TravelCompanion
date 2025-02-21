@@ -3,8 +3,8 @@ from contextlib import asynccontextmanager
 from database.config import Base
 from database.config import db_helper
 from fastapi import FastAPI
-from places_api.views import router as places_router
-from hotels_api.views import router as hotels_router
+from api.places.views import router as places_router
+from api.hotels.views import router as hotels_router
 
 
 @asynccontextmanager
