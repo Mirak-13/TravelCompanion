@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 import requests
 
-from database.config import Base
+from database.config import CreateTableHelper
 from database.config import db_helper
 from api.places.views import router as places_router
 from api.hotels.views import router as hotels_router
@@ -14,7 +14,7 @@ from api.places.models import recommendations_by_category
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     async with db_helper.engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+        await conn.run_sync(CreateTableHelper.metadata.create_all)
     yield
 
 

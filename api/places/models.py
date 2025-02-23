@@ -1,10 +1,9 @@
 import json
 from pathlib import Path
 
-from api.places.config import LIMIT
+from api.places.config import LIMIT, RECOMMENDATION_LIMIT
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-
 
 
 def query_by_category(category: str, city: str, country: str = 'Россия', limit: int = LIMIT) -> dict:
@@ -25,8 +24,7 @@ def query_by_name(name: str, city: str, country: str = 'Россия', limit: in
     return params
 
 
-def recommendations_by_category(country: str = 'Россия', limit: int = LIMIT) -> dict:
-
+def recommendations_by_category(city: str = 'Москва', country: str = 'Россия', limit: int = RECOMMENDATION_LIMIT) -> dict:
     try:
         filename = BASE_DIR / "rec_data.json"
         with open(filename, 'r', encoding='utf8') as file:
@@ -40,8 +38,7 @@ def recommendations_by_category(country: str = 'Россия', limit: int = LIMI
 
     params = {
         "categories": category,
-        "near": f"{country}",
+        "near": f"{city}, {country}",
         "limit": limit,
     }
     return params
-print(recommendations_by_category())

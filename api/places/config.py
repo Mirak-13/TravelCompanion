@@ -6,6 +6,7 @@ load_dotenv()
 API_KEY = os.getenv('API_KEY')
 
 LIMIT = 20
+RECOMMENDATION_LIMIT = 3
 
 url = "https://api.foursquare.com/v3/places/search"
 

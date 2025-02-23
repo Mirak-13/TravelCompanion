@@ -25,7 +25,7 @@ class DatabaseHelper:
 db_helper = DatabaseHelper(url=settings.db_url, echo=settings.db_echo)
 
 
-class Base(DeclarativeBase):
+class CreateTableHelper(DeclarativeBase):
     __abstract__ = True
 
     @declared_attr

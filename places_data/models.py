@@ -15,7 +15,6 @@ def save_data(data: Any) -> str:
         except (FileNotFoundError, json.JSONDecodeError):
             existing_data = {}
 
-
         for i in data['results']:
             cat = str(i['categories'][0]['id'])
             existing_data[cat] = existing_data.get(cat, 0) + 1
@@ -29,4 +28,3 @@ def save_data(data: Any) -> str:
 
     except Exception as e:
         return f'Ошибка: {e}'
-
