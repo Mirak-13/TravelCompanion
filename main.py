@@ -7,6 +7,7 @@ from database.config import CreateTableHelper
 from database.config import db_helper
 from api.places.views import router as places_router
 from api.hotels.views import router as hotels_router
+from database.comments.views import router as comments_router
 from api.places.config import url, headers
 from api.places.models import recommendations_by_category
 
@@ -21,7 +22,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 app.include_router(places_router)
 app.include_router(hotels_router)
-
+app.include_router(comments_router)
 
 @app.get("/", tags=["Home"])
 async def home():
