@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 import requests
 
-from places_data.models import save_data
+from places_data.queries import save_data
 from api.hotels.config import url
 from api.hotels.queries import query_hotel_name_city
 

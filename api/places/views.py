@@ -6,7 +6,7 @@ from fastapi import APIRouter
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from places_data.models import save_data
+from places_data.queries import save_data
 from api.places.config import url, headers, LIMIT
 from api.places.queries import query_by_category, query_by_name
 
