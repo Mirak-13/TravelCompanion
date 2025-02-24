@@ -24,21 +24,34 @@ def query_by_name(name: str, city: str, country: str = 'Россия', limit: in
     return params
 
 
-def recommendations_by_category(city: str = 'Москва', country: str = 'Россия', limit: int = RECOMMENDATION_LIMIT) -> dict:
+def recommendations_by_category(city: str = 'Москва', country: str = 'Россия',
+                                limit: int = RECOMMENDATION_LIMIT) -> dict | None:
     try:
         filename = BASE_DIR / "rec_data.json"
         with open(filename, 'r', encoding='utf8') as file:
             data = json.load(file)
+
+            if not data:
+                print('Файл пуст или не содержит данных!')
+                return None
+
             category = int(next(iter(data.keys())))
+
+            if not category:
+                print('Нет доступных категорий!')
+                return None
 
     except FileNotFoundError:
         print('Файл не найден!')
+        return None
     except json.JSONDecodeError:
         print('Некорректный JSON!')
+        return None
 
     params = {
-        "categories": category,
+        "category": category,
         "near": f"{city}, {country}",
         "limit": limit,
     }
     return params
+

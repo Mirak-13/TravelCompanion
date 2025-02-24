@@ -8,8 +8,8 @@ from database.config import db_helper
 from api.places.views import router as places_router
 from api.hotels.views import router as hotels_router
 from database.comments.views import router as comments_router
-from api.places.config import url, headers
-from api.places.models import recommendations_by_category
+from api.places.config import url, headers, RECOMMENDATION_LIMIT
+from api.places.queries import recommendations_by_category
 
 
 @asynccontextmanager
@@ -24,7 +24,12 @@ app.include_router(places_router)
 app.include_router(hotels_router)
 app.include_router(comments_router)
 
+
 @app.get("/", tags=["Home"])
-async def home():
-    recommendation_places = requests.get(url=url, headers=headers, params=recommendations_by_category())
-    return "Рекомендации на основе посещенных мест", recommendation_places.json()
+async def home(city: str = "Москва", country: str = 'Россия', limit=RECOMMENDATION_LIMIT):
+    if recommendations_by_category() is not None:
+        recommendation_places = requests.get(url=url, headers=headers,
+                                             params=recommendations_by_category(city=city, country=country, limit=limit))
+        return "Рекомендации на основе посещенных мест:", recommendation_places.json()
+    else:
+        return None

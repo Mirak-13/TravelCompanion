@@ -8,7 +8,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from places_data.models import save_data
 from api.places.config import url, headers, LIMIT
-from api.places.models import query_by_category, query_by_name
+from api.places.queries import query_by_category, query_by_name
 
 router = APIRouter(prefix='/places')
 
