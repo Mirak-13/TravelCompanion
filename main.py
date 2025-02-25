@@ -26,10 +26,13 @@ app.include_router(comments_router)
 
 
 @app.get("/", tags=["Home"])
-async def home(city: str = "Москва", country: str = 'Россия', limit=RECOMMENDATION_LIMIT):
+async def home(category: int = recommendations_by_category()['categories'], city: str = "Москва",
+               country: str = 'Россия',
+               limit=RECOMMENDATION_LIMIT):
     if recommendations_by_category() is not None:
         recommendation_places = requests.get(url=url, headers=headers,
-                                             params=recommendations_by_category(city=city, country=country, limit=limit))
+                                             params=recommendations_by_category(city=city, country=country,
+                                                                                limit=limit))
         return "Рекомендации на основе посещенных мест:", recommendation_places.json()
     else:
         return None

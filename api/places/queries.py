@@ -35,7 +35,7 @@ def recommendations_by_category(city: str = 'Москва', country: str = 'Ро
                 print('Файл пуст или не содержит данных!')
                 return None
 
-            category = int(next(iter(data.keys())))
+            category = int(list(data.keys())[0])
 
             if not category:
                 print('Нет доступных категорий!')
@@ -49,9 +49,8 @@ def recommendations_by_category(city: str = 'Москва', country: str = 'Ро
         return None
 
     params = {
-        "category": category,
+        "categories": category,
         "near": f"{city}, {country}",
         "limit": limit,
     }
     return params
-
