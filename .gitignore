@@ -18,3 +18,9 @@ debug.log
 
 # HTTP request files
 *test_main.http
+
+# DB
+db.sqlite3
+
+# Скрытые файлы Mac
+.DS_Store

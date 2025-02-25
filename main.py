@@ -1,13 +1,35 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
+import requests
 
-app = FastAPI()
+from database.config import CreateTableHelper
+from database.config import db_helper
+from api.places.views import router as places_router
+from api.hotels.views import router as hotels_router
+from database.comments.views import router as comments_router
+from api.places.config import url, headers, RECOMMENDATION_LIMIT
+from api.places.queries import recommendations_by_category
 
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    async with db_helper.engine.begin() as conn:
+        await conn.run_sync(CreateTableHelper.metadata.create_all)
+    yield
 
 
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
+app = FastAPI(lifespan=lifespan)
+app.include_router(places_router)
+app.include_router(hotels_router)
+app.include_router(comments_router)
+
+
+@app.get("/", tags=["Home"])
+async def home():
+    if recommendations_by_category() is not None:
+        recommendation_places = requests.get(url=url, headers=headers,
+                                             params=recommendations_by_category())
+        return "Рекомендации на основе посещенных мест:", recommendation_places.json()
+    else:
+        return None
